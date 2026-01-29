@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trifina Shop - Fructe Naturale Iași</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Poppins', sans-serif; margin: 0; padding: 0; background-color: #0d0f0a; color: #eee; padding-top: 140px; }
+        header { background: #111; color: #fff; padding: 5px 20px; display: flex; justify-content: space-between; align-items: center; position: fixed; top: 0; width: 100%; z-index: 1000; box-shadow: 0 2px 15px rgba(0,0,0,0.5); height: 80px; box-sizing: border-box; border-bottom: 2px solid #27ae60; }
+        
+        .header-logo { height: 65px; width: auto; cursor: pointer; }
+        .menu-icon { font-size: 1.8rem; cursor: pointer; color: white; }
+        
+        .countdown-bar { position: fixed; top: 80px; left: 0; width: 100%; background: #c0392b; color: white; text-align: center; padding: 8px 0; font-weight: bold; z-index: 999; display: flex; flex-direction: column; cursor: pointer; }
+        .iasi-info { font-size: 0.8rem; background: #96281b; width: 100%; padding: 2px 0; margin-top: 5px; }
+        .timer-digits { background: #fff; color: #c0392b; padding: 2px 8px; border-radius: 5px; font-family: monospace; font-size: 1.1rem; margin-left: 5px; }
+        
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 3000; display: flex; justify-content: center; align-items: center; backdrop-filter: blur(8px); }
+        .modal-box { background: #1a1a1a; width: 90%; max-width: 400px; padding: 40px 30px; border-radius: 20px; text-align: center; position: relative; color: white; border: 2px solid #27ae60; }
+        .close-modal-x { position: absolute; top: 15px; right: 20px; font-size: 28px; color: #888; cursor: pointer; font-weight: bold; }
+        .btn-claim { background: #27ae60; color: white; border: none; padding: 15px 30px; font-size: 1.2rem; font-weight: bold; border-radius: 50px; cursor: pointer; width: 100%; margin-top: 15px; }
+        
+        .container { padding: 10px; max-width: 600px; margin: 0 auto; }
+        .story-card { background: #1a1a1a; color: #fff; margin: 10px; padding: 25px; border-radius: 15px; border-left: 5px solid #27ae60; box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
+        .story-card h2 { color: #00FF7F; font-size: 1.3rem; margin-top: 0; text-transform: uppercase; }
+
+        .tips-section { background: #1a1a1a; margin: 10px; padding: 20px; border-radius: 12px; border: 1px solid #333; }
+        .tip-card { display: flex; align-items: center; margin-bottom: 15px; background: #222; padding: 10px; border-radius: 8px; }
+        .tip-icon { font-size: 1.5rem; margin-right: 15px; }
+        .tip-content b { font-size: 0.9rem; color: #00FF7F; display: block; }
+        .tip-content span { font-size: 0.8rem; color: #aaa; }
+
+        .benefits-card { background: #1a1a1a; margin: 10px; padding: 20px; border-radius: 12px; border: 1px solid #333; }
+        .benefit-item { display: flex; align-items: flex-start; margin-bottom: 12px; }
+        .benefit-icon { font-size: 1.3rem; margin-right: 10px; }
+        .benefit-text b { color: #00FF7F; font-size: 0.9rem; }
+        .benefit-text p { margin: 2px 0; font-size: 0.8rem; color: #aaa; }
+
+        .suggestion-card { background: #1a1a1a; margin: 10px; padding: 20px; border-radius: 12px; border-left: 5px solid #f1c40f; }
+        .suggestion-card textarea { width: 100%; padding: 10px; background: #222; color: #fff; border: 1px solid #333; border-radius: 8px; margin: 10px 0; }
+        .btn-suggest { background: #f1c40f; color: #000; border: none; padding: 10px 20px; border-radius: 8px; width: 100%; font-weight: bold; cursor: pointer; }
+
+        .card { background: #1a1a1a; border-radius: 12px; overflow: hidden; margin-bottom: 35px; box-shadow: 0 10px 20px rgba(0,0,0,0.5); border: 1px solid #333; scroll-margin-top: 180px; }
+        .card img { width: 100%; height: 280px; object-fit: cover; border-bottom: 3px solid #27ae60; }
+        .info { padding: 20px; text-align: center; }
+        .price-display { font-size: 1.7rem; color: #00FF7F; font-weight: bold; display: block; margin: 15px 0; }
+        .btn-whatsapp { background: linear-gradient(45deg, #27ae60, #1e8449); color: white; padding: 16px 0; text-decoration: none; border-radius: 8px; font-weight: bold; display: block; text-transform: uppercase; text-align: center; }
+        
+        .side-menu { height: 100%; width: 0; position: fixed; z-index: 2000; top: 0; right: 0; background-color: #111; overflow-x: hidden; transition: 0.3s; padding-top: 60px; }
+        .side-menu a { padding: 15px 30px; text-decoration: none; font-size: 1.1rem; color: #818181; display: block; border-bottom: 1px solid #222; }
+        footer { background: #111; color: white; text-align: center; padding: 40px 10px; border-top: 2px solid #27ae60; }
+    </style>
+</head>
+<body>
+
+    <div id="giftModal" class="modal-overlay">
+        <div class="modal-box">
+            <span class="close-modal-x" onclick="closeModalOnly()">&times;</span>
+            <img src="https://i.postimg.cc/9QWsjWVp/1769643741973.png" style="width: 120px; margin-bottom: 10px;">
+            <h2 style="color:#00FF7F">OFERTĂ ACTIVĂ!</h2>
+            <p>10% REDUCERE azi + <b>Livrare personală în Iași</b>!</p>
+            <button class="btn-claim" onclick="closeModal()">SUNT INTERESAT</button>
+        </div>
+    </div>
+
+    <header>
+        <img src="https://i.postimg.cc/9QWsjWVp/1769643741973.png" alt="Trifina Shop" class="header-logo" onclick="window.location.reload()">
+        <div class="menu-icon" onclick="openNav()">&#9776;</div>
+    </header>
+
+    <div class="countdown-bar" id="timerBar" style="display:none;" onclick="showOfferAgain()">
+        <div>REDUCEREA DISPARE ÎN: <span class="timer-digits" id="timer">10:00</span></div>
+        <div class="iasi-info">🚗 Livrare Iași la minim 500g</div>
+    </div>
+
+    <div id="mySidenav" class="side-menu">
+        <a href="javascript:void(0)" style="color:white; font-size:2rem;" onclick="closeNav()">&times;</a>
+        <a href="#poveste" onclick="closeNav()">👨‍💼 Povestea mea</a>
+        <a href="#tips" onclick="closeNav()">💡 Idei Utilizare</a>
+        <a href="#lamai" onclick="closeNav()">🍋 Lămâie</a>
+        <a href="#mere" onclick="closeNav()">🍏 Mere</a>
+        <a href="#lime" onclick="closeNav()">🍋 Lime</a>
+        <a href="#portocale" onclick="closeNav()">🍊 Portocale</a>
+        <a href="#grapefruit" onclick="closeNav()">🔴 Grapefruit</a>
+        <a href="#ananas" onclick="closeNav()">🍍 Ananas</a>
+    </div>
+
+    <div class="container">
+        <div id="poveste" class="story-card">
+            <h2>Standard de Barman</h2>
+            <p>După <b>11 ani în spatele barului</b>, am învățat că detaliile fac diferența. Astăzi, aduc aceeași rigoare în deshidratarea fructelor. Nu vând doar snacks-uri, vând ingredientele pe care un profesionist le-ar pune în cel mai fin cocktail.</p>
+        </div>
+
+        <div id="tips" class="tips-section">
+            <h2>💡 Tips & Tricks</h2>
+            <div class="tip-card"><div class="tip-icon">☕</div><div class="tip-content"><b>Ceai & Infuzii</b><span>Pune 2 felii de măr sau portocală în ceaiul fierbinte. Gust real.</span></div></div>
+            <div class="tip-card"><div class="tip-icon">🍹</div><div class="tip-content"><b>Băuturi</b><span>Garnish perfect pentru Gin & Tonic. Lime-ul deshidratat nu oxidează.</span></div></div>
+            <div class="tip-card"><div class="tip-icon">👶</div><div class="tip-content"><b>Snack Sănătos</b><span>Alternativa ideală la chipsuri pentru copii. 0% zahăr adăugat.</span></div></div>
+        </div>
+
+        <div class="benefits-card">
+            <div class="benefit-item"><span class="benefit-icon">🚫</span><div class="benefit-text"><b>Fără Zahăr sau Sulfiți</b><p>Fruct pur, deshidratat natural.</p></div></div>
+            <div class="benefit-item"><span class="benefit-icon">💎</span><div class="benefit-text"><b>Calitate de Expert</b><p>Fiecare felie este selectată manual.</p></div></div>
+        </div>
+
+        <div id="sugestii" class="suggestion-card">
+            <h3>💡 Ce fructe să mai aducem?</h3>
+            <textarea id="userIdea" rows="2" placeholder="Ex: Prune, Mango..."></textarea>
+            <button class="btn-suggest" onclick="sendIdea()">Trimite sugestia</button>
+        </div>
+
+        <div id="lamai" class="card">
+            <img src="https://i.postimg.cc/Ss7KjS2x/01B-LEMON-90f80b0c-9c4e-4b95-aee2-716c4f6c960a-1024x1024-2x-320x320.webp" alt="Lămâie">
+            <div class="info">
+                <h3>Lămâie Premium</h3>
+                <select onchange="updatePrice(this, 15, 'Lamai')" style="width:100%; padding:10px; border-radius:8px; margin-bottom:10px;">
+                    <option value="1">100g - 15 RON</option>
+                    <option value="2" selected>200g - 30 RON</option>
+                    <option value="5">500g - 75 RON</option>
+                    <option value="10">1Kg - 150 RON</option>
+                </select>
+                <span class="price-display" id="price-lamai">30 RON</span>
+                <a href="#" class="btn-whatsapp" id="btn-lamai" onclick="orderProduct('Lamai', 30, '200g')">Comandă</a>
+            </div>
+        </div>
+
+        <div id="mere" class="card">
+            <img src="https://i.postimg.cc/FHZvvXNm/Screenshot-20260128-194840-Chat-GPT.jpg" alt="Mere">
+            <div class="info">
+                <h3>Mere Uscate (Chips)</h3>
+                <select onchange="updatePrice(this, 15, 'Mere')" style="width:100%; padding:10px; border-radius:8px; margin-bottom:10px;">
+                    <option value="1">100g - 15 RON</option>
+                    <option value="2" selected>200g - 30 RON</option>
+                    <option value="5">500g - 75 RON</option>
+                    <option value="10">1Kg - 150 RON</option>
+                </select>
+                <span class="price-display" id="price-mere">30 RON</span>
+                <a href="#" class="btn-whatsapp" id="btn-mere" onclick="orderProduct('Mere', 30, '200g')">Comandă</a>
+            </div>
+        </div>
+
+        <div id="lime" class="card">
+            <img src="https://i.postimg.cc/ZKSX5swX/Screenshot-20260128-194847-Chat-GPT.jpg" alt="Lime">
+            <div class="info">
+                <h3>Lime Deshidratat</h3>
+                <select onchange="updatePrice(this, 40, 'Lime')" style="width:100%; padding:10px; border-radius:8px; margin-bottom:10px;">
+                    <option value="1" selected>100g - 40 RON</option>
+                    <option value="2">200g - 80 RON</option>
+                    <option value="5">500g - 200 RON</option>
+                </select>
+                <span class="price-display" id="price-lime">40 RON</span>
+                <a href="#" class="btn-whatsapp" id="btn-lime" onclick="orderProduct('Lime', 40, '100g')">Comandă</a>
+            </div>
+        </div>
+
+        <div id="portocale" class="card">
+            <img src="https://i.postimg.cc/g2M74zGY/Screenshot-20260128-194833-Chat-GPT.jpg" alt="Portocale">
+            <div class="info">
+                <h3>Felii Portocale</h3>
+                <select onchange="updatePrice(this, 18, 'Portocale')" style="width:100%; padding:10px; border-radius:8px; margin-bottom:10px;">
+                    <option value="1">100g - 18 RON</option>
+                    <option value="2" selected>200g - 36 RON</option>
+                    <option value="5">500g - 90 RON</option>
+                    <option value="10">1Kg - 180 RON</option>
+                </select>
+                <span class="price-display" id="price-portocale">36 RON</span>
+                <a href="#" class="btn-whatsapp" id="btn-portocale" onclick="orderProduct('Portocale', 36, '200g')">Comandă</a>
+            </div>
+        </div>
+
+        <div id="grapefruit" class="card">
+            <img src="https://i.postimg.cc/YSZsKdG0/Screenshot-20260128-194821-Chat-GPT.jpg" alt="Grapefruit">
+            <div class="info">
+                <h3>Grapefruit Roșu</h3>
+                <select onchange="updatePrice(this, 19, 'Grapefruit')" style="width:100%; padding:10px; border-radius:8px; margin-bottom:10px;">
+                    <option value="1">100g - 19 RON</option>
+                    <option value="2" selected>200g - 38 RON</option>
+                    <option value="5">500g - 95 RON</option>
+                    <option value="10">1Kg - 190 RON</option>
+                </select>
+                <span class="price-display" id="price-grapefruit">38 RON</span>
+                <a href="#" class="btn-whatsapp" id="btn-grapefruit" onclick="orderProduct('Grapefruit', 38, '200g')">Comandă</a>
+            </div>
+        </div>
+
+        <div id="ananas" class="card">
+            <img src="https://i.postimg.cc/NG7rWLST/Screenshot-20260128-194904-Chat-GPT.jpg" alt="Ananas">
+            <div class="info">
+                <h3>Inele Ananas</h3>
+                <select onchange="updatePrice(this, 25, 'Ananas')" style="width:100%; padding:10px; border-radius:8px; margin-bottom:10px;">
+                    <option value="1">100g - 25 RON</option>
+                    <option value="2" selected>200g - 50 RON</option>
+                    <option value="5">500g - 125 RON</option>
+                    <option value="10">1Kg - 250 RON</option>
+                </select>
+                <span class="price-display" id="price-ananas">50 RON</span>
+                <a href="#" class="btn-whatsapp" id="btn-ananas" onclick="orderProduct('Ananas', 50, '200g')">Comandă</a>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <img src="https://i.postimg.cc/9QWsjWVp/1769643741973.png" style="width: 80px; margin-bottom: 10px;"><br>
+        <p><b>Trifina Shop Iași</b></p>
+        <p>Tel: 0743 636 797</p>
+    </footer>
+
+    <script>
+        let timeInSeconds = 600;
+        let timerInterval;
+        function closeModal() { document.getElementById("giftModal").style.display = "none"; document.getElementById("timerBar").style.display = "flex"; startTimer(); }
+        function closeModalOnly() { document.getElementById("giftModal").style.display = "none"; document.getElementById("timerBar").style.display = "flex"; startTimer(); }
+        function startTimer() { if(timerInterval) return; timerInterval = setInterval(function() { let mins = Math.floor(timeInSeconds / 60); let secs = timeInSeconds % 60; document.getElementById("timer").innerText = (mins < 10 ? "0" : "") + mins + ":" + (secs < 10 ? "0" : "") + secs; if (timeInSeconds > 0) timeInSeconds--; else { clearInterval(timerInterval); document.getElementById("timerBar").innerHTML = "OFERTA A EXPIRAT"; } }, 1000); }
+        function orderProduct(name, price, weight) { 
+            let offer = timeInSeconds > 0 ? "%20-%20Vreau%20oferta%2010%25" : "";
+            let iasi = (weight === "500g" || weight === "1Kg") ? "%20(Doresc%20livrare%20Iasi)" : "";
+            window.location.href = "https://wa.me/40743636797?text=Salut,%20vreau%20" + name + "%20" + weight + "%20(" + price + "RON)" + offer + iasi; 
+        }
+        function sendIdea() {
+            let idea = document.getElementById("userIdea").value;
+            if(!idea) return alert("Scrie o idee!");
+            window.location.href = "https://wa.me/40743636797?text=Salut,%20am%20o%20sugestie:%20" + encodeURIComponent(idea);
+        }
+        function openNav() { document.getElementById("mySidenav").style.width = "250px"; }
+        function closeNav() { document.getElementById("mySidenav").style.width = "0"; }
+        function updatePrice(select, base, name) { 
+            let mult = parseFloat(select.value); 
+            let final = base * mult; 
+            let w = (mult == 1) ? "100g" : (mult == 2) ? "200g" : (mult == 5) ? "500g" : "1Kg"; 
+            let id = name.toLowerCase().replace("â", "a"); 
+            document.getElementById("price-" + id).innerText = final + " RON"; 
+            document.getElementById("btn-" + id).setAttribute("onclick", "orderProduct('" + name + "', " + final + ", '" + w + "')"); 
+        }
+    </script>
+</body>
+</html>
