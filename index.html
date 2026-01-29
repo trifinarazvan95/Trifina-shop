@@ -6,7 +6,6 @@
     <title>Trifina Shop - Fructe Naturale Iași</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
-        /* AM SCHIMBAT AICI LINK-UL CU UNUL STABIL DE PE UNSPLASH */
         body { 
             font-family: 'Poppins', sans-serif; 
             margin: 0; 
@@ -48,6 +47,14 @@
         .benefit-icon { font-size: 1.3rem; margin-right: 10px; }
         .benefit-text b { color: #00FF7F; font-size: 0.9rem; }
         .benefit-text p { margin: 2px 0; font-size: 0.8rem; color: #aaa; }
+
+        /* NOU: Stil pentru cardul de instructiuni */
+        .instruction-card { background: #1a1a1a; margin: 10px 10px 30px 10px; padding: 20px; border-radius: 12px; border: 2px solid #e74c3c; text-align: center; }
+        .instruction-card h3 { color: #e74c3c; margin-top: 0; text-transform: uppercase; font-size: 1.1rem; }
+        .instruction-card p { font-size: 0.9rem; color: #ccc; margin-bottom: 15px; }
+        .instruction-list { list-style: none; padding: 0; text-align: left; background: #222; padding: 15px; border-radius: 8px; }
+        .instruction-list li { margin-bottom: 8px; font-weight: bold; color: #fff; display: flex; align-items: center; }
+        .instruction-list li span { color: #27ae60; margin-right: 10px; }
 
         .suggestion-card { background: #1a1a1a; margin: 10px; padding: 20px; border-radius: 12px; border-left: 5px solid #f1c40f; }
         .suggestion-card textarea { width: 100%; padding: 10px; background: #222; color: #fff; border: 1px solid #333; border-radius: 8px; margin: 10px 0; }
@@ -120,6 +127,16 @@
             <h3>💡 Ce fructe să mai aducem?</h3>
             <textarea id="userIdea" rows="2" placeholder="Ex: Prune, Mango..."></textarea>
             <button class="btn-suggest" onclick="sendIdea()">Trimite sugestia</button>
+        </div>
+
+        <div class="instruction-card">
+            <h3>⚠️ IMPORTANT PENTRU COMANDĂ</h3>
+            <p>Pentru finalizarea comenzii pe WhatsApp, te rog să lași un mesaj cu:</p>
+            <ul class="instruction-list">
+                <li><span>✔</span> Nume Complet</li>
+                <li><span>✔</span> Adresa (Livrare)</li>
+                <li><span>✔</span> Produs & Cantitate</li>
+            </ul>
         </div>
 
         <div id="lamai" class="card">
