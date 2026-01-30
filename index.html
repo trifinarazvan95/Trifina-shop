@@ -6,374 +6,149 @@
     <title>Trifina Shop - Fructe Naturale Iași</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
-        body { 
-            font-family: 'Poppins', sans-serif; 
-            margin: 0; 
-            padding: 0; 
-            background: linear-gradient(rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.90)), url('https://images.unsplash.com/photo-1615485500704-8e99099d800c?auto=format&fit=crop&q=80&w=1920');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            color: #eee; 
-            padding-top: 140px; 
-            padding-bottom: 120px; 
-        }
-        header { background: #111; color: #fff; padding: 5px 20px; display: flex; justify-content: space-between; align-items: center; position: fixed; top: 0; width: 100%; z-index: 1000; box-shadow: 0 2px 15px rgba(0,0,0,0.5); height: 80px; box-sizing: border-box; border-bottom: 2px solid #27ae60; }
+        body { font-family: 'Poppins', sans-serif; margin: 0; padding: 0; background: #000; color: #eee; padding-top: 140px; padding-bottom: 150px; scroll-behavior: smooth; }
+        header { background: #000; padding: 10px 20px; display: flex; justify-content: space-between; align-items: center; position: fixed; top: 0; width: 100%; z-index: 1000; border-bottom: 2px solid #27ae60; box-sizing: border-box; }
+        .lang-container { background: #1a1a1a; padding: 5px 10px; border-radius: 5px; border: 1px solid #333; }
+        #langSelect { background: none; color: #27ae60; border: none; font-weight: bold; outline: none; cursor: pointer; font-family: inherit; }
+        .header-logo { height: 60px; cursor: pointer; }
+        .menu-icon { font-size: 2rem; cursor: pointer; color: white; }
+        .countdown-bar { position: fixed; top: 80px; left: 0; width: 100%; background: #7c0000; color: white; text-align: center; padding: 10px 0; font-weight: bold; z-index: 999; }
+        .timer-digits { background: #fff; color: #c0392b; padding: 2px 8px; border-radius: 5px; font-family: monospace; font-size: 1.2rem; margin-left: 10px; }
         
-        .lang-container { position: absolute; top: 22px; left: 10px; z-index: 1100; }
-        #langSelect { background: #1a1a1a; color: #27ae60; border: 1px solid #27ae60; padding: 5px; border-radius: 6px; font-size: 12px; font-weight: bold; cursor: pointer; outline: none; }
-
-        .header-logo { height: 65px; width: auto; cursor: pointer; margin-left: 65px; }
-        .menu-icon { font-size: 1.8rem; cursor: pointer; color: white; }
+        /* SIDEBAR - 75% latime + dunga verde */
+        .sidenav { height: 100%; width: 0; position: fixed; z-index: 2000; top: 0; right: 0; background-color: #000; overflow-x: hidden; transition: 0.4s; padding-top: 60px; border-left: 3px solid #27ae60; }
+        .sidenav a { padding: 15px 30px; text-decoration: none; font-size: 1.3rem; color: #888; display: block; transition: 0.3s; font-weight: 600; }
+        .sidenav a:hover { color: #fff; background: #111; }
+        .sidenav .closebtn { position: absolute; top: 10px; right: 25px; font-size: 36px; color: white; cursor: pointer; }
         
-        .countdown-bar { position: fixed; top: 80px; left: 0; width: 100%; background: #c0392b; color: white; text-align: center; padding: 8px 0; font-weight: bold; z-index: 999; display: flex; flex-direction: column; cursor: pointer; }
-        .iasi-info { font-size: 0.8rem; background: #96281b; width: 100%; padding: 2px 0; margin-top: 5px; }
-        .timer-digits { background: #fff; color: #c0392b; padding: 2px 8px; border-radius: 5px; font-family: monospace; font-size: 1.1rem; margin-left: 5px; }
-        
-        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 3000; display: flex; justify-content: center; align-items: center; backdrop-filter: blur(8px); }
-        .modal-box { background: #1a1a1a; width: 90%; max-width: 400px; padding: 40px 30px; border-radius: 20px; text-align: center; position: relative; color: white; border: 2px solid #27ae60; }
-        .close-modal-x { position: absolute; top: 15px; right: 20px; font-size: 28px; color: #888; cursor: pointer; font-weight: bold; }
-        .btn-claim { background: #27ae60; color: white; border: none; padding: 15px 30px; font-size: 1.2rem; font-weight: bold; border-radius: 50px; cursor: pointer; width: 100%; margin-top: 15px; }
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 3000; display: flex; justify-content: center; align-items: center; }
+        .modal-box { background: #000; width: 90%; max-width: 400px; padding: 30px; border-radius: 15px; text-align: center; border: 2px solid #27ae60; position: relative; }
+        .modal-box h2 { color: #00FF7F; font-size: 1.8rem; margin: 20px 0; text-transform: uppercase; }
+        .btn-claim { background: #006400; color: white; border: none; padding: 15px 20px; font-size: 1.1rem; font-weight: bold; border-radius: 30px; cursor: pointer; width: 100%; text-transform: uppercase; margin-top: 20px; }
         
         .container { padding: 10px; max-width: 600px; margin: 0 auto; }
-        .story-card { background: #1a1a1a; color: #fff; margin: 10px; padding: 25px; border-radius: 15px; border-left: 5px solid #27ae60; box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
-        .story-card h2 { color: #00FF7F; font-size: 1.3rem; margin-top: 0; text-transform: uppercase; }
-
-        .tips-section { background: #1a1a1a; margin: 10px; padding: 20px; border-radius: 12px; border: 1px solid #333; }
-        .tip-card { display: flex; align-items: center; margin-bottom: 15px; background: #222; padding: 10px; border-radius: 8px; }
-        .tip-icon { font-size: 1.5rem; margin-right: 15px; }
-        .tip-content b { font-size: 0.9rem; color: #00FF7F; display: block; }
-        .tip-content span { font-size: 0.8rem; color: #aaa; }
-
-        .benefits-card { background: #1a1a1a; margin: 10px; padding: 20px; border-radius: 12px; border: 1px solid #333; }
-        .benefit-item { display: flex; align-items: flex-start; margin-bottom: 12px; }
-        .benefit-icon { font-size: 1.3rem; margin-right: 10px; }
-        .benefit-text b { color: #00FF7F; font-size: 0.9rem; }
-        .benefit-text p { margin: 2px 0; font-size: 0.8rem; color: #aaa; }
-
-        .instruction-card { background: #1a1a1a; margin: 10px 10px 30px 10px; padding: 20px; border-radius: 12px; border: 2px solid #e74c3c; text-align: center; }
-        .instruction-card h3 { color: #e74c3c; margin-top: 0; text-transform: uppercase; font-size: 1.1rem; }
-        .instruction-list { list-style: none; padding: 0; text-align: left; background: #222; padding: 15px; border-radius: 8px; margin-top:10px; }
-        .instruction-list li { margin-bottom: 8px; font-weight: bold; color: #fff; display: flex; align-items: center; font-size: 0.9rem; }
-        .instruction-list li span { color: #27ae60; margin-right: 10px; }
-
-        .suggestion-card { background: #1a1a1a; margin: 10px; padding: 20px; border-radius: 12px; border-left: 5px solid #f1c40f; }
-        .suggestion-card textarea { width: 100%; padding: 10px; background: #222; color: #fff; border: 1px solid #333; border-radius: 8px; margin: 10px 0; font-family: inherit; }
-        .btn-suggest { background: #f1c40f; color: #000; border: none; padding: 10px 20px; border-radius: 8px; width: 100%; font-weight: bold; cursor: pointer; }
-
-        .card { background: #1a1a1a; border-radius: 12px; overflow: hidden; margin-bottom: 35px; box-shadow: 0 10px 20px rgba(0,0,0,0.5); border: 1px solid #333; scroll-margin-top: 180px; }
+        .story-card { background: #0a0a0a; margin: 15px 0; padding: 25px; border-radius: 15px; border-left: 5px solid #27ae60; }
+        .story-card h2 { color: #00FF7F; text-transform: uppercase; font-size: 1.4rem; margin-top: 0; }
+        .tips-section { background: #0a0a0a; margin: 15px 0; padding: 25px; border-radius: 15px; border: 1px solid #222; }
+        .tip-item { display: flex; align-items: center; margin: 20px 0; }
+        .tip-img { width: 45px; margin-right: 15px; }
+        .tip-text b { color: #00FF7F; display: block; font-size: 1.1rem; }
+        .suggestion-card { background: #0a0a0a; margin: 15px 0; padding: 25px; border-radius: 15px; border-left: 5px solid #f1c40f; }
+        textarea { width: 100%; padding: 15px; background: #1a1a1a; color: white; border: 1px solid #333; border-radius: 10px; margin: 15px 0; box-sizing: border-box; font-family: inherit; }
+        .btn-suggest { background: #b8860b; color: #000; border: none; padding: 12px; border-radius: 8px; width: 100%; font-weight: bold; cursor: pointer; text-transform: uppercase; }
+        .instruction-card { background: #0a0a0a; margin: 15px 0; padding: 25px; border-radius: 15px; border: 2px solid #ff4d4d; }
+        .instruction-list { list-style: none; padding: 0; margin-top: 20px; }
+        .instruction-list li { margin: 12px 0; font-weight: bold; display: flex; align-items: center; }
+        .instruction-list li span { color: #27ae60; margin-right: 12px; font-size: 1.5rem; }
+        
+        .card { background: #0a0a0a; border-radius: 15px; overflow: hidden; margin-bottom: 40px; border: 1px solid #222; }
         .card img { width: 100%; height: 280px; object-fit: cover; border-bottom: 3px solid #27ae60; }
         .info { padding: 20px; text-align: center; }
+        .usage-list { text-align: left; background: #111; padding: 15px; border-radius: 10px; margin: 15px 0; font-size: 0.85rem; color: #ccc; list-style: none; }
+        .usage-list li::before { content: "•"; color: #27ae60; font-weight: bold; margin-right: 8px; }
+        .pro-calc { background: rgba(39, 174, 96, 0.1); border: 1px dashed #27ae60; padding: 10px; border-radius: 8px; margin-bottom: 15px; color: #00FF7F; font-size: 0.85rem; font-style: italic; }
+        .price-display { font-size: 1.8rem; color: #00FF7F; font-weight: bold; display: block; margin: 15px 0; }
+        .btn-add-cart { background: #f1c40f; color: #000; border: none; padding: 15px; border-radius: 10px; font-weight: bold; width: 100%; cursor: pointer; text-transform: uppercase; }
         
-        .usage-list { text-align: left; background: #222; padding: 15px; border-radius: 8px; margin: 15px 0; font-size: 0.85rem; list-style: none; color: #ccc; }
-        .usage-list li { margin-bottom: 5px; padding-left: 20px; position: relative; }
-        .usage-list li::before { content: "•"; color: #27ae60; position: absolute; left: 0; font-weight: bold; }
-
-        .price-display { font-size: 1.7rem; color: #00FF7F; font-weight: bold; display: block; margin: 15px 0; }
-        .btn-whatsapp { background: linear-gradient(45deg, #27ae60, #1e8449); color: white; padding: 16px 0; text-decoration: none; border-radius: 8px; font-weight: bold; display: block; text-transform: uppercase; text-align: center; margin-bottom: 10px; }
-        .btn-add-cart { background: #f1c40f; color: #000; border: none; padding: 12px 0; border-radius: 8px; font-weight: bold; width: 100%; cursor: pointer; text-transform: uppercase; font-size: 0.9rem; }
-
-        .cart-footer { position: fixed; bottom: 0; left: 0; width: 100%; background: #111; border-top: 2px solid #27ae60; padding: 15px 20px; box-sizing: border-box; z-index: 1001; display: none; }
+        .cart-footer { position: fixed; bottom: 0; left: 0; width: 100%; background: #000; border-top: 2px solid #27ae60; padding: 15px 20px; box-sizing: border-box; z-index: 1001; display: none; }
         .cart-content { max-width: 600px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
-        .btn-checkout { background: #27ae60; color: white; padding: 12px 25px; border-radius: 8px; text-decoration: none; font-weight: bold; text-transform: uppercase; border: none; cursor: pointer; }
-
-        #orderModal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 4000; justify-content: center; align-items: center; backdrop-filter: blur(5px); }
-        .modal-content-order { background: #1a1a1a; padding: 30px; border-radius: 20px; width: 90%; max-width: 400px; border: 2px solid #27ae60; text-align: center; }
-        input, textarea.order-input { width: 100%; padding: 12px; margin: 10px 0; background: #0d0f0a; border: 1px solid #333; color: white; border-radius: 6px; box-sizing: border-box; font-family: inherit; }
-
-        .side-menu { height: 100%; width: 0; position: fixed; z-index: 2000; top: 0; right: 0; background-color: #111; overflow-x: hidden; transition: 0.3s; padding-top: 60px; }
-        .side-menu a { padding: 15px 30px; text-decoration: none; font-size: 1.1rem; color: #818181; display: block; border-bottom: 1px solid #222; }
-        
+        .btn-checkout { background: #27ae60; color: white; padding: 12px 25px; border-radius: 8px; font-weight: bold; text-transform: uppercase; border: none; cursor: pointer; }
+        #orderModal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 5000; justify-content: center; align-items: center; }
         .l-en, .l-it { display: none; }
-        footer { background: #111; color: white; text-align: center; padding: 40px 10px; border-top: 2px solid #27ae60; }
+        footer { background: #000; color: #888; text-align: center; padding: 40px 10px; border-top: 1px solid #222; }
     </style>
 </head>
 <body>
+    <div id="mySidenav" class="sidenav">
+        <span class="closebtn" onclick="closeNav()">&times;</span>
+        <a href="#poveste" onclick="closeNav()">Poveste</a>
+        <a href="#lamai" onclick="closeNav()">Lămâie</a>
+        <a href="#ananas" onclick="closeNav()">Ananas</a>
+        <a href="#lime" onclick="closeNav()">Lime</a>
+        <a href="#portocale" onclick="closeNav()">Portocale</a>
+        <a href="#grapefruit" onclick="closeNav()">Grapefruit</a>
+        <a href="#mere" onclick="closeNav()">Mere</a>
+    </div>
 
     <div id="giftModal" class="modal-overlay">
         <div class="modal-box">
-            <span class="close-modal-x" onclick="closeModalOnly()">&times;</span>
-            <img src="https://i.postimg.cc/9QWsjWVp/1769643741973.png" style="width: 120px; margin-bottom: 10px;">
-            <h2 class="l-ro" style="color:#00FF7F">OFERTĂ ACTIVĂ!</h2>
-            <h2 class="l-en" style="color:#00FF7F">ACTIVE OFFER!</h2>
-            <h2 class="l-it" style="color:#00FF7F">OFFERTA ATTIVA!</h2>
-            <p class="l-ro">10% REDUCERE azi + <b>Livrare personală în Iași</b>!</p>
-            <p class="l-en">10% DISCOUNT today + <b>Iasi Delivery</b>!</p>
-            <p class="l-it">10% SCONTO oggi + <b>Consegna a Iasi</b>!</p>
+            <span style="position:absolute; top:10px; right:15px; font-size:25px; color:#888; cursor:pointer;" onclick="closeModalOnly()">&times;</span>
+            <img src="https://i.postimg.cc/9QWsjWVp/1769643741973.png" style="width: 100px;">
+            <h2 class="l-ro">OFERTĂ ACTIVĂ!</h2><h2 class="l-en">ACTIVE OFFER!</h2><h2 class="l-it">OFFERTA ATTIVA!</h2>
+            <p>10% REDUCERE azi + <br><b>Livrare personală în Iași!</b></p>
             <button class="btn-claim" onclick="closeModal()">SUNT INTERESAT / I AM INTERESTED</button>
         </div>
     </div>
 
     <header>
-        <div class="lang-container">
-            <select id="langSelect" onchange="changeLang(this.value)">
-                <option value="ro">🇷🇴 RO</option>
-                <option value="en">🇺🇸 EN</option>
-                <option value="it">🇮🇹 IT</option>
-            </select>
-        </div>
-        <img src="https://i.postimg.cc/9QWsjWVp/1769643741973.png" alt="Trifina Shop" class="header-logo" onclick="window.location.reload()">
+        <div class="lang-container"><select id="langSelect" onchange="changeLang(this.value)"><option value="ro">🇷🇴 RO</option><option value="en">🇺🇸 EN</option><option value="it">🇮🇹 IT</option></select></div>
+        <img src="https://i.postimg.cc/9QWsjWVp/1769643741973.png" class="header-logo" onclick="window.location.reload()">
         <div class="menu-icon" onclick="openNav()">&#9776;</div>
     </header>
 
-    <div class="countdown-bar" id="timerBar" style="display:none;" onclick="showOfferAgain()">
-        <div>REDUCEREA DISPARE ÎN: <span class="timer-digits" id="timer">10:00</span></div>
-        <div class="iasi-info">🚗 Livrare Iași la minim 200g</div>
-    </div>
-
-    <div id="mySidenav" class="side-menu">
-        <a href="javascript:void(0)" style="color:white; font-size:2rem;" onclick="closeNav()">&times;</a>
-        <a href="#poveste" onclick="closeNav()">👨‍💼 Poveste / Story</a>
-        <a href="#tips" onclick="closeNav()">💡 Tips & Tricks</a>
-        <a href="#lamai" onclick="closeNav()">🍋 Lămâie</a>
-        <a href="#mere" onclick="closeNav()">🍏 Mere</a>
-        <a href="#lime" onclick="closeNav()">🍋 Lime</a>
-        <a href="#portocale" onclick="closeNav()">🍊 Portocale</a>
-        <a href="#grapefruit" onclick="closeNav()">🔴 Grapefruit</a>
-        <a href="#ananas" onclick="closeNav()">🍍 Ananas</a>
-    </div>
+    <div class="countdown-bar" id="timerBar" style="display:none;" onclick="showOfferAgain()"><div>REDUCEREA DISPARE ÎN: <span class="timer-digits" id="timer">10:00</span></div></div>
 
     <div class="container">
         <div id="poveste" class="story-card">
-            <h2 class="l-ro">Standard de Barman</h2>
-            <h2 class="l-en">Bartender Standard</h2>
-            <h2 class="l-it">Standard del Barman</h2>
-            <p class="l-ro">După <b>11 ani în spatele barului</b>, am învățat că detaliile fac diferența. Nu vând doar snacks-uri, vând ingrediente profesionale.</p>
-            <p class="l-en">After 11 years behind the bar, I learned details matter. I sell professional ingredients.</p>
-            <p class="l-it">Dopo 11 anni al bar, ho imparato che i dettagli contano. Vendo ingredienti professionali.</p>
+            <h2 class="l-ro">STANDARD DE BARMAN</h2><h2 class="l-en">BARTENDER STANDARD</h2><h2 class="l-it">STANDARD DEL BARMAN</h2>
+            <div class="l-ro"><p>Salut, mă numesc <b>Trifina Răzvan din Iași</b> și, după 11 ani petrecuți în spatele barului, am învățat un adevăr simplu: un cocktail bun poate fi distrus de un <b>garnish</b> prost. Trifina Shop s-a născut din obsesia mea pentru detalii. Am lăsat shakerul pentru a crea fructe deshidratate la standard de profesionist.</p></div>
+            <div class="l-en"><p>Hi, I am <b>Trifina Razvan from Iasi</b>. After 11 years behind the bar, details matter. I sell professional <b>garnish</b>.</p></div>
+            <div class="l-it"><p>Ciao, sono <b>Trifina Razvan di Iasi</b>. Offro <b>garnish</b> professionale per i tuoi drink.</p></div>
         </div>
 
-        <div id="tips" class="tips-section">
-            <h2 class="l-ro">💡 Tips & Tricks</h2>
-            <div class="tip-card"><div class="tip-icon">☕</div><div class="tip-content"><b>Ceai & Infuzii</b><span>Pune 2 felii în ceaiul fierbinte. Gust real.</span></div></div>
-            <div class="tip-card"><div class="tip-icon">🍹</div><div class="tip-content"><b>Băuturi</b><span>Garnish perfect pentru Gin & Tonic.</span></div></div>
+        <div class="tips-section">
+            <h2 style="font-size:1.5rem; margin-top:0;">💡 Tips & Tricks</h2>
+            <div class="tip-item"><img src="https://cdn-icons-png.flaticon.com/512/3062/3062184.png" class="tip-img"><div class="tip-text"><b>Ceai & Infuzii</b><span>Pune 2 felii în ceaiul fierbinte. Gust real.</span></div></div>
+            <div class="tip-item"><img src="https://cdn-icons-png.flaticon.com/512/920/920610.png" class="tip-img"><div class="tip-text"><b>Băuturi</b><span>Garnish perfect pentru Gin & Tonic.</span></div></div>
         </div>
 
-        <div class="benefits-card">
-            <div class="benefit-item"><span class="benefit-icon">🚫</span><div class="benefit-text"><b>Fără Zahăr</b><p>Fruct pur, deshidratat natural.</p></div></div>
-            <div class="benefit-item"><span class="benefit-icon">💎</span><div class="benefit-text"><b>Calitate Expert</b><p>Selecție manuală, felie cu felie.</p></div></div>
-        </div>
+        <div id="sugestii" class="suggestion-card"><h3>💡 Ce fructe să mai aducem?</h3><textarea id="userIdea" rows="2" placeholder="Ex: Prune, Mango..."></textarea><button class="btn-suggest" onclick="sendIdea()">Trimite sugestia</button></div>
 
-        <div id="sugestii" class="suggestion-card">
-            <h3>💡 Ce fructe să mai aducem?</h3>
-            <textarea id="userIdea" rows="2" placeholder="Ex: Prune, Mango..."></textarea>
-            <button class="btn-suggest" onclick="sendIdea()">Trimite sugestia</button>
-        </div>
+        <div class="instruction-card"><h3>⚠️ IMPORTANT PENTRU COMANDĂ</h3><ul class="instruction-list"><li><span>✔</span> Nume Complet</li><li><span>✔</span> Adresa de livrare</li></ul></div>
 
-        <div class="instruction-card">
-            <h3>⚠️ IMPORTANT PENTRU COMANDĂ</h3>
-            <p>Pentru finalizarea comenzii pe WhatsApp, te rog să lași un mesaj cu:</p>
-            <ul class="instruction-list">
-                <li><span>✔</span> Nume Complet</li>
-                <li><span>✔</span> Adresa (Livrare)</li>
-                <li><span>✔</span> Produs & Cantitate</li>
-            </ul>
-        </div>
-
-        <div id="lamai" class="card">
-            <img src="https://i.postimg.cc/Ss7KjS2x/01B-LEMON-90f80b0c-9c4e-4b95-aee2-716c4f6c960a-1024x1024-2x-320x320.webp">
-            <div class="info">
-                <h3 class="l-ro">Lămâie Premium</h3><h3 class="l-en">Premium Lemon</h3><h3 class="l-it">Limone Premium</h3>
-                <ul class="usage-list">
-                    <div class="l-ro">
-                        <li>Garnish pentru cocktailuri (gin tonic, lemonade, whiskey sour)</li>
-                        <li>Ceaiuri și infuzii naturale</li>
-                        <li>Apă aromatizată / Decor deserturi</li>
-                        <li>Vin fiert / punch</li>
-                    </div>
-                    <div class="l-en"><li>Garnish for cocktails</li><li>Teas & Infusions</li><li>Flavored water</li></div>
-                    <div class="l-it"><li>Guarnizione per cocktail</li><li>Tè e infusi</li><li>Acqua aromatizzata</li></div>
-                </ul>
-                <select id="select-lamai" onchange="updatePrice(this, 15, 'Lamai')" style="width:100%; padding:10px; border-radius:8px; margin-bottom:10px;">
-                    <option value="0.5" selected>50g - 7.5 RON</option>
-                    <option value="1">100g - 15 RON</option>
-                    <option value="2">200g - 30 RON</option>
-                    <option value="5">500g - 75 RON</option>
-                </select>
-                <span class="price-display" id="price-lamai">7.5 RON</span>
-                <a href="#" class="btn-whatsapp" id="btn-lamai" onclick="orderProduct('Lamai', 7.5, '50g')">Comandă Rapidă</a>
-                <button class="btn-add-cart" onclick="addToCart('Lămâie', 'price-lamai', 'select-lamai')">Adaugă în Coș</button>
-            </div>
-        </div>
-
-        <div id="mere" class="card">
-            <img src="https://i.postimg.cc/FHZvvXNm/Screenshot-20260128-194840-Chat-GPT.jpg">
-            <div class="info">
-                <h3 class="l-ro">Mere Uscate (Chips)</h3><h3 class="l-en">Dried Apples</h3><h3 class="l-it">Mela Essiccata</h3>
-                <ul class="usage-list">
-                    <div class="l-ro"><li>Gustare naturală (ideal pentru copii)</li><li>Vin fiert și punch</li><li>Granola și mic dejun</li></div>
-                    <div class="l-en"><li>Natural snack</li><li>Mulled wine</li><li>Breakfast & Granola</li></div>
-                </ul>
-                <select id="select-mere" onchange="updatePrice(this, 15, 'Mere')" style="width:100%; padding:10px; border-radius:8px; margin-bottom:10px;">
-                    <option value="0.5" selected>50g - 7.5 RON</option>
-                    <option value="1">100g - 15 RON</option>
-                    <option value="2">200g - 30 RON</option>
-                    <option value="5">500g - 75 RON</option>
-                </select>
-                <span class="price-display" id="price-mere">7.5 RON</span>
-                <a href="#" class="btn-whatsapp" id="btn-mere" onclick="orderProduct('Mere', 7.5, '50g')">Comandă Rapidă</a>
-                <button class="btn-add-cart" onclick="addToCart('Mere', 'price-mere', 'select-mere')">Adaugă în Coș</button>
-            </div>
-        </div>
-
-        <div id="lime" class="card">
-            <img src="https://i.postimg.cc/ZKSX5swX/Screenshot-20260128-194847-Chat-GPT.jpg">
-            <div class="info">
-                <h3 class="l-ro">Lime Deshidratat</h3><h3 class="l-en">Dried Lime</h3><h3 class="l-it">Lime Essiccato</h3>
-                <ul class="usage-list">
-                    <div class="l-ro"><li>Garnish cocktail (mojito, margarita)</li><li>Mixuri baruri & cafenele</li><li>Decor deserturi</li></div>
-                    <div class="l-en"><li>Cocktail garnish</li><li>Bar & Cafe mixes</li></div>
-                </ul>
-                <select id="select-lime" onchange="updatePrice(this, 40, 'Lime')" style="width:100%; padding:10px; border-radius:8px; margin-bottom:10px;">
-                    <option value="0.5" selected>50g - 20 RON</option>
-                    <option value="1">100g - 40 RON</option>
-                    <option value="2">200g - 80 RON</option>
-                </select>
-                <span class="price-display" id="price-lime">20 RON</span>
-                <a href="#" class="btn-whatsapp" id="btn-lime" onclick="orderProduct('Lime', 20, '50g')">Comandă Rapidă</a>
-                <button class="btn-add-cart" onclick="addToCart('Lime', 'price-lime', 'select-lime')">Adaugă în Coș</button>
-            </div>
-        </div>
-
-        <div id="portocale" class="card">
-            <img src="https://i.postimg.cc/g2M74zGY/Screenshot-20260128-194833-Chat-GPT.jpg">
-            <div class="info">
-                <h3 class="l-ro">Felii Portocale</h3><h3 class="l-en">Orange Slices</h3><h3 class="l-it">Arancia a Fette</h3>
-                <ul class="usage-list">
-                    <div class="l-ro"><li>Vin fiert & Cocktailuri</li><li>Decorațiuni (Crăciun)</li><li>Apă infuzată</li></div>
-                    <div class="l-en"><li>Mulled wine</li><li>Holiday decor</li></div>
-                </ul>
-                <select id="select-portocale" onchange="updatePrice(this, 18, 'Portocale')" style="width:100%; padding:10px; border-radius:8px; margin-bottom:10px;">
-                    <option value="0.5" selected>50g - 9 RON</option>
-                    <option value="1">100g - 18 RON</option>
-                    <option value="2">200g - 36 RON</option>
-                    <option value="5">500g - 90 RON</option>
-                </select>
-                <span class="price-display" id="price-portocale">9 RON</span>
-                <a href="#" class="btn-whatsapp" id="btn-portocale" onclick="orderProduct('Portocale', 9, '50g')">Comandă Rapidă</a>
-                <button class="btn-add-cart" onclick="addToCart('Portocale', 'price-portocale', 'select-portocale')">Adaugă în Coș</button>
-            </div>
-        </div>
-
-        <div id="grapefruit" class="card">
-            <img src="https://i.postimg.cc/YSZsKdG0/Screenshot-20260128-194821-Chat-GPT.jpg">
-            <div class="info">
-                <h3 class="l-ro">Grapefruit Roșu</h3><h3 class="l-en">Dried Grapefruit</h3><h3 class="l-it">Pompelmo Rosso</h3>
-                <ul class="usage-list">
-                    <div class="l-ro"><li>Garnish premium cocktail</li><li>Ceaiuri detox</li><li>Seturi cadou</li></div>
-                    <div class="l-en"><li>Premium garnish</li><li>Detox tea</li></div>
-                </ul>
-                <select id="select-grapefruit" onchange="updatePrice(this, 19, 'Grapefruit')" style="width:100%; padding:10px; border-radius:8px; margin-bottom:10px;">
-                    <option value="0.5" selected>50g - 9.5 RON</option>
-                    <option value="1">100g - 19 RON</option>
-                </select>
-                <span class="price-display" id="price-grapefruit">9.5 RON</span>
-                <a href="#" class="btn-whatsapp" id="btn-grapefruit" onclick="orderProduct('Grapefruit', 9.5, '50g')">Comandă Rapidă</a>
-                <button class="btn-add-cart" onclick="addToCart('Grapefruit', 'price-grapefruit', 'select-grapefruit')">Adaugă în Coș</button>
-            </div>
-        </div>
-
-        <div id="ananas" class="card">
-            <img src="https://i.postimg.cc/NG7rWLST/Screenshot-20260128-194904-Chat-GPT.jpg">
-            <div class="info">
-                <h3 class="l-ro">Inele Ananas</h3><h3 class="l-en">Dried Pineapple</h3><h3 class="l-it">Ananas Essiccato</h3>
-                <ul class="usage-list">
-                    <div class="l-ro"><li>Snack sănătos / Garnish exotic</li><li>Mic dejun / Ciocolată artizanală</li></div>
-                    <div class="l-en"><li>Healthy snack</li><li>Exotic garnish</li></div>
-                </ul>
-                <select id="select-ananas" onchange="updatePrice(this, 25, 'Ananas')" style="width:100%; padding:10px; border-radius:8px; margin-bottom:10px;">
-                    <option value="0.5" selected>50g - 12.5 RON</option>
-                    <option value="1">100g - 25 RON</option>
-                </select>
-                <span class="price-display" id="price-ananas">12.5 RON</span>
-                <a href="#" class="btn-whatsapp" id="btn-ananas" onclick="orderProduct('Ananas', 12.5, '50g')">Comandă Rapidă</a>
-                <button class="btn-add-cart" onclick="addToCart('Ananas', 'price-ananas', 'select-ananas')">Adaugă în Coș</button>
-            </div>
-        </div>
+        <div id="lamai" class="card"><img src="https://i.postimg.cc/Ss7KjS2x/01B-LEMON-90f80b0c-9c4e-4b95-aee2-716c4f6c960a-1024x1024-2x-320x320.webp"><div class="info"><h3>Lămâie Premium</h3><ul class="usage-list"><li>Garnish cocktail</li><li>Ceaiuri naturale</li></ul><select id="select-lamai" onchange="updatePrice(this, 15, 'lamai')" style="width:100%; padding:12px; background:#111; color:white; border:1px solid #333; border-radius:10px;"><option value="0.5">50g - 7.5 RON</option><option value="1">100g - 15 RON</option></select><span class="price-display" id="price-lamai">7.5 RON</span><button class="btn-add-cart" onclick="addToCart('Lămâie', 'price-lamai', 'select-lamai')">Adaugă în Coș</button></div></div>
+        <div id="ananas" class="card"><img src="https://i.postimg.cc/NG7rWLST/Screenshot-20260128-194904-Chat-GPT.jpg"><div class="info"><h3>Inele Ananas</h3><div class="pro-calc">📏 Calcul expert: Feliat la 5mm pentru textură perfectă.</div><ul class="usage-list"><li>Snack sănătos</li><li>Garnish exotic</li></ul><select id="select-ananas" onchange="updatePrice(this, 25, 'ananas')" style="width:100%; padding:12px; background:#111; color:white; border:1px solid #333; border-radius:10px;"><option value="0.5">50g - 12.5 RON</option><option value="1">100g - 25 RON</option></select><span class="price-display" id="price-ananas">12.5 RON</span><button class="btn-add-cart" onclick="addToCart('Ananas', 'price-ananas', 'select-ananas')">Adaugă în Coș</button></div></div>
+        <div id="lime" class="card"><img src="https://i.postimg.cc/ZKSX5swX/Screenshot-20260128-194847-Chat-GPT.jpg"><div class="info"><h3>Lime Deshidratat</h3><ul class="usage-list"><li>Garnish cocktail</li><li>Mojito / Margarita</li></ul><select id="select-lime" onchange="updatePrice(this, 40, 'lime')" style="width:100%; padding:12px; background:#111; color:white; border:1px solid #333; border-radius:10px;"><option value="0.5">50g - 20 RON</option><option value="1">100g - 40 RON</option></select><span class="price-display" id="price-lime">20 RON</span><button class="btn-add-cart" onclick="addToCart('Lime', 'price-lime', 'select-lime')">Adaugă în Coș</button></div></div>
+        <div id="portocale" class="card"><img src="https://i.postimg.cc/g2M74zGY/Screenshot-20260128-194833-Chat-GPT.jpg"><div class="info"><h3>Felii Portocale</h3><ul class="usage-list"><li>Vin fiert</li><li>Garnish Gin</li></ul><select id="select-portocale" onchange="updatePrice(this, 18, 'portocale')" style="width:100%; padding:12px; background:#111; color:white; border:1px solid #333; border-radius:10px;"><option value="0.5">50g - 9 RON</option><option value="1">100g - 18 RON</option></select><span class="price-display" id="price-portocale">9 RON</span><button class="btn-add-cart" onclick="addToCart('Portocale', 'price-portocale', 'select-portocale')">Adaugă în Coș</button></div></div>
+        <div id="grapefruit" class="card"><img src="https://i.postimg.cc/YSZsKdG0/Screenshot-20260128-194821-Chat-GPT.jpg"><div class="info"><h3>Grapefruit Roșu</h3><ul class="usage-list"><li>Garnish premium</li><li>Ceaiuri detox</li></ul><select id="select-grapefruit" onchange="updatePrice(this, 19, 'grapefruit')" style="width:100%; padding:12px; background:#111; color:white; border:1px solid #333; border-radius:10px;"><option value="0.5">50g - 9.5 RON</option><option value="1">100g - 19 RON</option></select><span class="price-display" id="price-grapefruit">9.5 RON</span><button class="btn-add-cart" onclick="addToCart('Grapefruit', 'price-grapefruit', 'select-grapefruit')">Adaugă în Coș</button></div></div>
+        <div id="mere" class="card"><img src="https://i.postimg.cc/FHZvvXNm/Screenshot-20260128-194840-Chat-GPT.jpg"><div class="info"><h3>Mere Uscate</h3><ul class="usage-list"><li>Snack natural</li><li>Granola</li></ul><select id="select-mere" onchange="updatePrice(this, 15, 'mere')" style="width:100%; padding:12px; background:#111; color:white; border:1px solid #333; border-radius:10px;"><option value="0.5">50g - 7.5 RON</option><option value="1">100g - 15 RON</option></select><span class="price-display" id="price-mere">7.5 RON</span><button class="btn-add-cart" onclick="addToCart('Mere', 'price-mere', 'select-mere')">Adaugă în Coș</button></div></div>
     </div>
 
-    <div class="cart-footer" id="cartFooter">
-        <div class="cart-content">
-            <div><b>Total:</b> <span id="totalPriceDisplay" style="color: #00FF7F; font-size: 1.2rem;">0 RON</span></div>
-            <button class="btn-checkout" onclick="openOrderModal()">Finalizează</button>
-        </div>
-    </div>
+    <div class="cart-footer" id="cartFooter"><div class="cart-content"><div style="text-align:left;"><div id="subLabel" style="font-size:0.8rem; text-decoration:line-through; color:#888; display:none;">0 RON</div><div style="font-weight:bold; color:#00FF7F; font-size:1.3rem;" id="finalLabel">0 RON</div><div id="saveAmount" style="font-size:0.75rem; color:#f1c40f; display:none;">Economisești: 0 RON</div></div><button class="btn-checkout" onclick="openOrderModal()">Finalizează</button></div></div>
 
-    <div id="orderModal">
-        <div class="modal-content-order">
-            <h2 style="color: #27ae60">Finalizare Comandă</h2>
-            <input type="text" id="custName" placeholder="Nume Complet">
-            <input type="text" id="custPhone" placeholder="Telefon">
-            <textarea id="custAddress" class="order-input" rows="3" placeholder="Adresa de livrare"></textarea>
-            <button class="btn-claim" onclick="sendCartToWhatsApp()">TRIMITE PE WHATSAPP</button>
-            <button onclick="closeOrderModal()" style="background:none; border:none; color:#888; margin-top:10px; cursor:pointer;">Înapoi</button>
-        </div>
-    </div>
+    <div id="orderModal"><div style="background:#0a0a0a; padding:30px; border-radius:20px; width:90%; max-width:400px; border:1px solid #27ae60; text-align:center;"><h2 style="color:#27ae60; margin-top:0;">Finalizare Comandă</h2><input type="text" id="custName" placeholder="Nume Complet" style="width:100%; padding:12px; margin:10px 0; background:#111; border:1px solid #333; color:white; border-radius:8px;"><input type="text" id="custPhone" placeholder="Telefon" style="width:100%; padding:12px; margin:10px 0; background:#111; border:1px solid #333; color:white; border-radius:8px;"><textarea id="custAddress" placeholder="Adresa de livrare" rows="3" style="width:100%; padding:12px; margin:10px 0; background:#111; border:1px solid #333; color:white; border-radius:8px;"></textarea><button class="btn-claim" onclick="sendCartToWhatsApp()">TRIMITE PE WHATSAPP</button><button onclick="document.getElementById('orderModal').style.display='none'" style="background:none; border:none; color:#888; margin-top:15px; cursor:pointer;">Înapoi</button></div></div>
 
-    <footer>
-        <img src="https://i.postimg.cc/9QWsjWVp/1769643741973.png" style="width: 80px;"><br>
-        <p><b>Trifina Shop Iași</b><br>0743 636 797</p>
-    </footer>
+    <footer><p>Trifina Shop Iași - 0743 636 797</p></footer>
 
     <script>
-        // LIMBA
-        function changeLang(lang) {
-            document.querySelectorAll('.l-ro, .l-en, .l-it').forEach(el => el.style.display = 'none');
-            document.querySelectorAll('.l-' + lang).forEach(el => el.style.display = 'block');
-        }
-
-        // TIMER & MODAL
-        let timeInSeconds = 600;
-        let timerInterval;
-        function closeModal() { document.getElementById("giftModal").style.display = "none"; document.getElementById("timerBar").style.display = "flex"; startTimer(); }
-        function closeModalOnly() { document.getElementById("giftModal").style.display = "none"; document.getElementById("timerBar").style.display = "flex"; startTimer(); }
-        function startTimer() { timerInterval = setInterval(() => { let m = Math.floor(timeInSeconds / 60); let s = timeInSeconds % 60; document.getElementById("timer").innerText = `${m}:${s < 10 ? '0' : ''}${s}`; if(timeInSeconds > 0) timeInSeconds--; else clearInterval(timerInterval); }, 1000); }
-        function showOfferAgain() { document.getElementById("giftModal").style.display = "flex"; }
-
-        // COS
-        let cart = [];
-        function addToCart(name, priceId, selectId) {
-            let price = parseFloat(document.getElementById(priceId).innerText);
-            let select = document.getElementById(selectId);
-            let weight = select.options[select.selectedIndex].text.split(' - ')[0];
-            cart.push({name, weight, price});
-            updateCartUI();
-        }
+        let timeInSeconds = 600, timerInterval, cart = [];
+        function closeModal() { document.getElementById("giftModal").style.display = "none"; document.getElementById("timerBar").style.display = "block"; startTimer(); }
+        function closeModalOnly() { document.getElementById("giftModal").style.display = "none"; document.getElementById("timerBar").style.display = "block"; startTimer(); }
+        function startTimer() { if(timerInterval) return; timerInterval = setInterval(() => { let m = Math.floor(timeInSeconds / 60), s = timeInSeconds % 60; document.getElementById("timer").innerText = `${m}:${s < 10 ? '0' : ''}${s}`; if(timeInSeconds > 0) timeInSeconds--; else { clearInterval(timerInterval); document.getElementById("timerBar").innerHTML = "OFERTA EXPIRATĂ"; updateCartUI(); } }, 1000); }
+        function openNav() { document.getElementById("mySidenav").style.width = "75%"; }
+        function closeNav() { document.getElementById("mySidenav").style.width = "0"; }
+        function changeLang(lang) { document.querySelectorAll('.l-ro, .l-en, .l-it').forEach(el => el.style.display = 'none'); document.querySelectorAll('.l-' + lang).forEach(el => el.style.display = 'block'); }
+        function updatePrice(sel, base, name) { document.getElementById("price-" + name).innerText = (base * parseFloat(sel.value)).toFixed(1) + " RON"; }
+        function addToCart(name, priceId, selectId) { let price = parseFloat(document.getElementById(priceId).innerText), sel = document.getElementById(selectId), weight = sel.options[sel.selectedIndex].text.split(' - ')[0]; cart.push({name, weight, price}); updateCartUI(); }
         function updateCartUI() {
-            let total = cart.reduce((s, i) => s + i.price, 0);
-            document.getElementById('totalPriceDisplay').innerText = total.toFixed(1) + " RON";
-            document.getElementById('cartFooter').style.display = cart.length > 0 ? 'block' : 'none';
+            let subtotal = cart.reduce((s, i) => s + i.price, 0), final = subtotal, savings = 0;
+            if(timeInSeconds > 0 && subtotal > 0) { savings = subtotal * 0.1; final = subtotal - savings; document.getElementById('subLabel').innerText = subtotal.toFixed(1) + " RON"; document.getElementById('subLabel').style.display = "block"; document.getElementById('saveAmount').innerText = "Ai economisit: " + savings.toFixed(1) + " RON"; document.getElementById('saveAmount').style.display = "block"; }
+            else { document.getElementById('subLabel').style.display = "none"; document.getElementById('saveAmount').style.display = "none"; }
+            document.getElementById('finalLabel').innerText = final.toFixed(1) + " RON"; document.getElementById('cartFooter').style.display = cart.length > 0 ? 'block' : 'none';
         }
         function openOrderModal() { document.getElementById('orderModal').style.display = 'flex'; }
-        function closeOrderModal() { document.getElementById('orderModal').style.display = 'none'; }
         function sendCartToWhatsApp() {
             let n = document.getElementById('custName').value, a = document.getElementById('custAddress').value, p = document.getElementById('custPhone').value;
-            if(!n || !a) return alert("Completează datele!");
-            let msg = `Salut! Sunt ${n}. Vreau:\n` + cart.map(i => `- ${i.name} (${i.weight}): ${i.price} RON`).join('\n') + `\nTotal: ${cart.reduce((s,i)=>s+i.price,0).toFixed(1)} RON\nAdresa: ${a}\nTel: ${p}`;
-            if(timeInSeconds > 0) msg += "\n*Vreau oferta 10%!*";
-            window.location.href = `https://wa.me/40743636797?text=${encodeURIComponent(msg)}`;
+            if(!n || !a || !p) return alert("Completează datele!");
+            const counts = {}; cart.forEach(item => { const key = `${item.name} (${item.weight})`; counts[key] = (counts[key] || 0) + 1; });
+            let itemsMsg = ""; for (const key in counts) { itemsMsg += `• ${counts[key]}x ${key}\n`; }
+            let subtotal = cart.reduce((s, i) => s + i.price, 0), final = subtotal, bonus = "";
+            if(timeInSeconds > 0) { final = subtotal * 0.9; bonus = `\n💰 *Preț listă:* ${subtotal.toFixed(1)} RON\n🎁 *Economie (10%):* -${(subtotal * 0.1).toFixed(1)} RON`; }
+            let msg = `🛒 *COMANDĂ NOUĂ*\n\n👤 *Client:* ${n}\n📞 *Tel:* ${p}\n📍 *Adresa:* ${a}\n\n📦 *Produse:*\n${itemsMsg}${bonus}\n✅ *TOTAL FINAL:* ${final.toFixed(1)} RON`;
+            window.open(`https://wa.me/40743636797?text=${encodeURIComponent(msg)}`, '_blank');
         }
-
-        // PRETURI & WHATSAPP INDIVIDUAL
-        function updatePrice(sel, base, name) { 
-            let final = (base * parseFloat(sel.value)).toFixed(1);
-            let w = sel.options[sel.selectedIndex].text.split(' - ')[0];
-            let id = name.toLowerCase().replace("â", "a"); 
-            document.getElementById("price-" + id).innerText = final + " RON";
-            document.getElementById("btn-" + id).setAttribute("onclick", `orderProduct('${name}', ${final}, '${w}')`);
-        }
-        function orderProduct(name, price, weight) { 
-            let offer = timeInSeconds > 0 ? " - Oferta 10%" : "";
-            let iasi = (weight === "200g" || weight === "500g") ? " (Livrare Iasi)" : "";
-            window.location.href = `https://wa.me/40743636797?text=Vreau ${name} ${weight} (${price} RON)${offer}${iasi}`;
-        }
-
-        function sendIdea() {
-            let idea = document.getElementById("userIdea").value;
-            window.location.href = "https://wa.me/40743636797?text=Sugestie: " + encodeURIComponent(idea);
-        }
-        function openNav() { document.getElementById("mySidenav").style.width = "250px"; }
-        function closeNav() { document.getElementById("mySidenav").style.width = "0"; }
+        function sendIdea() { window.open(`https://wa.me/40743636797?text=Sugestie: ${encodeURIComponent(document.getElementById("userIdea").value)}`, '_blank'); }
+        function showOfferAgain() { document.getElementById("giftModal").style.display = "flex"; }
     </script>
 </body>
 </html>
